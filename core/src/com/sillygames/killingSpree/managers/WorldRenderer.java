@@ -128,11 +128,6 @@ public class WorldRenderer {
     @SuppressWarnings("unused")
     public void render(float delta) {
         camera.setToOrtho(false, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
-        // Temp experiment to check GC
-        count++;
-        if(count % 60 == 0) {
-//            System.gc();
-        }
         viewport.apply();
         renderer.setView(camera);
         renderer.render();
