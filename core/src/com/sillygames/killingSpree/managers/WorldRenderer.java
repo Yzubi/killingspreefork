@@ -67,9 +67,6 @@ public class WorldRenderer {
     private int screenWidth;
     private int screenHeight;
     private short recentId;
-    private float screenShakeX;
-    private float screenShakeY;
-    private float screenShakeTime;
     private KillingSpree game;
     public SFXPlayer audioPlayer;
     public HUDRenderer hudRenderer;
@@ -91,9 +88,6 @@ public class WorldRenderer {
         batch = new SpriteBatch();
         controlsSender = new ControlsSender();
         recentId = -2;
-        screenShakeX = 0;
-        screenShakeY = 0;
-        screenShakeTime = 0;
         hudRenderer = new HUDRenderer();
         this.game = game;
     }
@@ -133,9 +127,7 @@ public class WorldRenderer {
 
     @SuppressWarnings("unused")
     public void render(float delta) {
-//        screenShakeTime = 0.1f;
-        camera.setToOrtho(false, VIEWPORT_WIDTH + screenShakeX,
-                VIEWPORT_HEIGHT + screenShakeY);
+        camera.setToOrtho(false, VIEWPORT_WIDTH, VIEWPORT_HEIGHT);
         // Temp experiment to check GC
         count++;
         if(count % 60 == 0) {
@@ -216,8 +208,6 @@ public class WorldRenderer {
             }
         }
         for (ClientEntity entity: worldMap.values()) {
-            if (entity.destroy && entity instanceof ClientBomb)
-                shakeScreen();
             if (entity.remove) {
                 worldMap.remove(entity.id);
                 continue;
@@ -253,10 +243,6 @@ public class WorldRenderer {
         screenHeight = height;
         viewport.update(width, height);
         camera.update();
-    }
-    
-    public void shakeScreen() {
-        screenShakeTime = 0.01f;
     }
 
     public void dispose() {
