@@ -134,22 +134,6 @@ public class WorldRenderer {
     @SuppressWarnings("unused")
     public void render(float delta) {
 //        screenShakeTime = 0.1f;
-        if (screenShakeTime > 0) {
-            screenShakeTime += delta;
-            screenShakeX += MathUtils.random(-7, 7);
-            screenShakeY += MathUtils.random(-7, 7);
-            if (Math.abs(screenShakeX) > 10) {
-                screenShakeX = Math.signum(screenShakeX) * 10;
-            }
-            if (Math.abs(screenShakeY) > 5) {
-                screenShakeY = Math.signum(screenShakeY) * 5;
-            }
-            if (screenShakeTime > 0.2f) {
-                screenShakeTime = 0;
-                screenShakeX = 0;
-                screenShakeY = 0;
-            }
-        }
         camera.setToOrtho(false, VIEWPORT_WIDTH + screenShakeX,
                 VIEWPORT_HEIGHT + screenShakeY);
         // Temp experiment to check GC
